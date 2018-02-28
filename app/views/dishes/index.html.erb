@@ -89,7 +89,6 @@
       <tr>
         <th>Name</th>
         <th>Cuisine</th>
-        <th>Actions</th>
       </tr>
 
       <% @dishes.each do |dish| %>
@@ -101,11 +100,6 @@
               <%= dish.cuisine.name %>
             </a>
           <% end %>
-        </td>
-        <td>
-          <a href="/dishes/<%= dish.id %>" class="btn btn-primary">Show</a>
-          <a href="/dishes/<%= dish.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_dish/<%= dish.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
         </td>
       </tr>
       <% end %>
