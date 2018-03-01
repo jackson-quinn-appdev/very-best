@@ -90,7 +90,7 @@
 
       <% @dishes.each do |dish| %>
       <tr>
-        <td><%= dish.name %></td>
+        <td><a href="/dishes/<%=dish.id%>"><%= dish.name %></a></td>
         <td>venue</td>
         <td>
           <% if dish.cuisine.present? %>
@@ -102,7 +102,6 @@
       </tr>
       <% end %>
     </table>
-    <%= paginate @dishes, theme: 'twitter-bootstrap-4' %>
   </div>
   
   <div class="col-md-3">
