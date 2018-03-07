@@ -88,7 +88,6 @@
         <th>The very best...</th>
         <th>is at...</th>
         <th></th>
-        <th></th>
       </tr>
 
       <% @dishes.each do |dish| %>
@@ -97,6 +96,7 @@
         
         <% dish_bookmark = Bookmark.where({:user_id => current_user.id, :dish_id => dish.id}) %>
         <% if dish_bookmark.length == 0%>
+          <div class="wrapper">
           <td> 
             <form action="/create_bookmark" class="form-inline" method="post">
               <input type="hidden" name="dish_id" value="<%=dish.id%>">
@@ -109,21 +109,21 @@
                         :id,                       # attribute to use for the value as a symbol
                         :name,                     # attribute to use as the content as a symbol
                       ),
-                      {:prompt => 'Choose a venue...'}
+                      {:prompt => 'Choose a venue...', :class => "form-control form-control-sm mr-sm-1" },
                     )
                   %>
                
-          </td>
-          <td>
-             <button style="display:inline;" class="btn btn-primary btn-sm">
-                    <i class="fa fa-heart"></i>
-                  </button>
+
+                <button style="display:inline;" class="btn btn-primary btn-sm">
+                  <i class="fa fa-heart"></i>
+                </button>
+              </div>
               </form>
           </td>
           
         <% else %>
         <% bookmarked_venue = Venue.where({:id => dish_bookmark.first.venue_id}).first %>
-        <td colspan="2">
+        <td>
           <a href="/venues/<%=bookmarked_venue.id%>">
           <%=bookmarked_venue.name %>
           </a>
