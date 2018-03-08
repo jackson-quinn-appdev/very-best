@@ -22,9 +22,59 @@
               <%= cuisine.name %>
             </label>
             </div>
+
         <% end %>
         </div>
-        
+
+            <div class='col-md-6'>
+              <div class='input-group date' id='created_atlteqPicker'>
+                  <%= f.text_field :created_at_lteq, :class => "form-control", :placeholder => "Created at less than or equal to" %>
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+            </div>
+          </div>
+      </div>
+      <script type="text/javascript">
+          $(function () {
+              $('#created_atgteqPicker').datetimepicker({
+                  format: 'YYYY-MM-DD hh:mm:SS'
+              });
+              $('#created_atlteqPicker').datetimepicker({
+                  useCurrent: false,
+                  format: 'YYYY-MM-DD hh:mm:SS'
+              });
+              $('#created_atgteqPicker').on("dp.change", function (e) {
+                  $('#created_atlteqPicker').data("DateTimePicker").minDate(e.date);
+              });
+              $('#created_atlteqPicker').on("dp.change", function (e) {
+                  $('#created_atgteqPicker').data("DateTimePicker").maxDate(e.date);
+              });
+          });
+      </script>
+
+
+<div class="form-group">
+      <%= f.label :cuisine_name_cont, "Cuisine name contains" %>
+      <%= f.text_field :cuisine_name_cont, :class => "form-control", :placeholder => "Cuisine name contains" %>
+    </div>
+
+<div class="form-group">
+      <%= f.label :bookmarks_notes_cont, "Bookmark notes contains" %>
+      <%= f.text_field :bookmarks_notes_cont, :class => "form-control", :placeholder => "Bookmark notes contains" %>
+    </div>
+
+<div class="form-group">
+      <%= f.label :fans_username_cont, "User username contains" %>
+      <%= f.text_field :fans_username_cont, :class => "form-control", :placeholder => "User username contains" %>
+    </div>
+
+<div class="form-group">
+      <%= f.label :specialists_name_cont, "Venue name contains" %>
+      <%= f.text_field :specialists_name_cont, :class => "form-control", :placeholder => "Venue name contains" %>
+    </div>
+
 
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
 
@@ -42,7 +92,6 @@
         <th>The very best...</th>
         <th>is at...</th>
         <th></th>
-        <th></th>
       </tr>
 
       <% @dishes.each do |dish| %>
@@ -51,6 +100,7 @@
         
         <% dish_bookmark = Bookmark.where({:user_id => current_user.id, :dish_id => dish.id}) %>
         <% if dish_bookmark.length == 0%>
+          <div class="wrapper">
           <td> 
             <form action="/create_bookmark" class="form-inline" method="post">
               <input type="hidden" name="dish_id" value="<%=dish.id%>">
@@ -63,28 +113,28 @@
                         :id,                       # attribute to use for the value as a symbol
                         :name,                     # attribute to use as the content as a symbol
                       ),
-                      {:prompt => 'Choose a venue...'}
+                      {:prompt => 'Choose a venue...', :class => "form-control form-control-sm mr-sm-1" },
                     )
                   %>
                
-          </td>
-          <td>
-             <button style="display:inline;" class="btn btn-primary btn-sm">
-                    <i class="fa fa-heart"></i>
-                  </button>
+
+                <button style="display:inline;" class="btn btn-primary btn-sm">
+                  <i class="fa fa-heart"></i>
+                </button>
+              </div>
               </form>
           </td>
           
         <% else %>
         <% bookmarked_venue = Venue.where({:id => dish_bookmark.first.venue_id}).first %>
-        <td colspan="2">
+        <td>
           <a href="/venues/<%=bookmarked_venue.id%>">
           <%=bookmarked_venue.name %>
           </a>
         </td>
         <% end %>
           
-        <td>
+        <td align="right">
           <% if dish.cuisine.present? %>
             <span class="badge badge-primary">
               <%= dish.cuisine.name %>
