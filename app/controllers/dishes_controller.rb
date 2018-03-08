@@ -3,6 +3,7 @@ class DishesController < ApplicationController
     @q = Dish.ransack(params[:q])
     @dishes = @q.result(:distinct => true).includes(:cuisine, :bookmarks, :fans, :specialists)
     @dishes = @dishes.sort_by{ |dish| dish.name.downcase }
+
     
     @b = Cuisine.ransack(params[:q])
     @cuisines = @b.result(:distinct => true)
