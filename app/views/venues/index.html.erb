@@ -42,7 +42,11 @@
         <div id="location_map" style="height: 360px;"></div>
       </div>
 
-      <% @venues.each do |venue| %>
+      <% user_venue_list = Bookmark.where({:user_id => current_user.id}) %>
+      <% user_venue_list = user_venue_list.map{|b| b.venue_id} %>
+      <% user_venue_list = user_venue_list.map{|v| Venue.where({ :id => v}).first} %>
+      <% user_venue_list = user_venue_list.sort_by{ |venue| venue.name.downcase } %>
+      <% user_venue_list.uniq.each do |venue| %>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
           <a href="/venues/<%= venue.id %>">
@@ -56,7 +60,7 @@
       </ul>
       <% end %>
     </table>
-    <%= paginate @venues, theme: 'twitter-bootstrap-4' %>
+    <!--<%= paginate @venues, theme: 'twitter-bootstrap-4' %>-->
     </div>
   </div>
   
