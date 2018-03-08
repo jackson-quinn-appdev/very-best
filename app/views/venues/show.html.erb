@@ -33,7 +33,7 @@
           </a>
           
           <div class="float-right text-muted">
-            <i><%= time_ago_in_words(bookmark.created_at) %> ago</i>
+            <small><%= time_ago_in_words(bookmark.created_at) %> ago</small>
             <a href="/bookmarks/<%= bookmark.id %>/edit" >
               <i class="fa fa-fw fa-edit"></i>
             </a>
@@ -45,14 +45,14 @@
       <% end %>
 
       <li class="list-group-item">
-        <form action="/create_bookmark" method="post">
+        <form action="/create_bookmark" method="post" class="form-inline float-left">
         <!-- Hidden input for authenticity token to protect from forgery -->
         <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
         <!-- Label and input for dish_id -->
-        <div class="form-group">
-          <label for="dish_id" class="control-label">
-            Dish
+        <div class="form-group mr-sm-1">
+          <label for="dish_id" class="control-label sr-only">
+               Dish
           </label>
 
           <%= select_tag(:dish_id, options_from_collection_for_select(Dish.all, :id, :name), :class => "form-control") %>
@@ -68,6 +68,10 @@
           <i class="fa fa-heart"></i>
         </button>
         </form>
+        
+        <small class="float-right text-muted">
+            right now
+        </small>
       </li>
     </ul>
   </div>
