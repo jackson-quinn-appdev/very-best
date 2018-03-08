@@ -10,18 +10,21 @@
     <%= f.text_field :name_cont, :class => "form-control", :placeholder => "Name contains" %>
   </div>
   
+      <div class="form-group">
+        <label for="cuisine_id_eq_any">Cuisine</label>
 
-<div class="form-group">
-          <%= f.label :created_at, "Created at" %>
-          <div class="row">
-            <div class='col-md-6 mb-1'>
-              <div class='input-group date' id='created_atgteqPicker'>
-                  <%= f.text_field :created_at_gteq, :class => "form-control", :placeholder => "Created at greater than or equal to" %>
-                  <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-              </div>
+        <%= f.label :id_eq, "Cuisine" %>
+        <% @cuisines.each do |cuisine| %>
+        <div class="checkbox">
+            <label>
+             <!--<input type="checkbox" name="q_cuisine_id_eq_any" id="q_cuisine_id_eq_any" value="<%#= guy.id %>" />-->
+             <%= check_box_tag('q[cuisine_id_eq_any][]', cuisine.id) %>
+              <%= cuisine.name %>
+            </label>
             </div>
+
+        <% end %>
+        </div>
 
             <div class='col-md-6'>
               <div class='input-group date' id='created_atlteqPicker'>
@@ -71,6 +74,7 @@
       <%= f.label :specialists_name_cont, "Venue name contains" %>
       <%= f.text_field :specialists_name_cont, :class => "form-control", :placeholder => "Venue name contains" %>
     </div>
+
 
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
 
