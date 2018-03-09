@@ -47,7 +47,6 @@
         
         <% dish_bookmark = Bookmark.where({:user_id => current_user.id, :dish_id => dish.id}) %>
         <% if dish_bookmark.length == 0%>
-          <div class="wrapper">
           <td> 
             <form action="/create_bookmark" class="form-inline" method="post">
               <input type="hidden" name="dish_id" value="<%=dish.id%>">
@@ -68,7 +67,6 @@
                 <button style="display:inline;" class="btn btn-primary btn-sm">
                   <i class="fa fa-heart"></i>
                 </button>
-              </div>
               </form>
           </td>
           
